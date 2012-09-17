@@ -1,0 +1,496 @@
+<html>
+<head>
+    
+    <style type='text/css'>
+        body {
+            background-color: black;
+            color: white;
+        }
+        
+        .dev-area {
+            margin: 50px 0px 0px 100px;
+        }
+        
+        .bb-mapwidget-area {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border: 1px solid white;
+        }
+        
+        .bb-map-menu-icon {
+            position: absolute;
+            top: 5px;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            /*padding-top: 10px;*/
+            -moz-border-radius-topleft: 5px;
+            -moz-border-radius-bottomleft: 5px;
+            -webkit-border-top-left-radius: 5px;
+            -webkit-border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 18pt;
+        }
+        
+        .bb-map-menu {
+            position: absolute;
+            top: 5px;
+            right: 0;
+            color: black;
+            background-color: white;
+            padding: 0 10px 0 0;
+            border: 1px solid black;
+            -moz-border-radius-topleft: 5px;
+            -moz-border-radius-bottomleft: 5px;
+            -webkit-border-top-left-radius: 5px;
+            -webkit-border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        .bb-map-menu-list {
+            list-style: none;
+            margin: 0;
+            padding: 10px;
+        }
+        .bb-map-menu-list-item {
+            cursor: pointer;
+            cursor: hand;
+        }
+        
+        
+        .bb-map-center-address {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -32px 0 0 -75px;
+            padding: 10px 0 5px 0;
+            width: 150px;
+            height: 50px;
+            text-align: center;
+            background-color: white;
+            border: 1px solid black;
+            z-index: 9999;
+        }
+        .bb-map-personal-view {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -67px 0 0 -100px;
+            padding: 10px 0 5px 0;
+            width: 200px;
+            height: 120px;
+            text-align: center;
+            background-color: white;
+            border: 1px solid black;
+            color: black;
+            z-index: 9999;
+        }
+        
+        .bb-map-notification {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -150px 0 0 -100px;
+            padding: 10px 0 5px 0;
+            width: 200px;
+            /*height: 200px;*/
+            text-align: center;
+            background-color: white;
+            border: 1px solid black;
+            color: black;
+            z-index: 9999;
+        }
+        .bb-map-create-notification-select-roles {
+            overflow: auto;
+            height: 50px;
+            text-align: left;
+            background-color: orange;
+            border: 1px solid black;
+            margin: 5px 5px 5px 5px;
+        }
+        .bb-map-create-notification-select-roles ul {
+            list-style: none;
+            margin: 0 0 0 0;
+            padding: 0 0 0 5px;
+        }
+        .bb-map-create-notification-select-roles ul li {
+            list-style: none;
+        }
+        
+        
+        
+        .bb-map-zoomctl {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+        .bb-map-plus-inner {
+            width: 35px;
+            height: 25px;
+            padding: 0;
+            padding-top: 10px;
+            -moz-border-radius-topleft: 7px;
+            -moz-border-radius-topright: 7px;
+            -webkit-border-top-left-radius: 7px;
+            -webkit-border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            border: 1px solid black;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        .bb-map-minus-inner {
+            width: 35px;
+            height: 27px;
+            padding: 0;
+            padding-top: 8px;
+            -moz-border-radius-bottomleft: 7px;
+            -moz-border-radius-bottomright: 7px;
+            -webkit-border-bottom-left-radius: 7px;
+            -webkit-border-bottom-right-radius: 7px;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            border: 1px solid black;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        
+        .bb-map-ctl-link {
+            text-decoration: none;
+            color: black;
+            background: rgba(255, 255, 255, .6);
+            cursor: pointer;
+            cursor: hand;
+        }
+        
+        .bb-map-ctl:hover {
+            /*background-color: #dddddd;*/
+            background-color: white;
+        }
+        .bb-map-ctl:active {
+            background-color: #dddddd;
+            /*background-color: #999999;*/
+        }
+        
+        .bb-map-up-inner {
+            position: absolute;
+            bottom: 82px;
+            right: 46px;
+            z-index: 1000;
+            
+            width: 35px;
+            height: 25px;
+            padding: 0;
+            padding-top: 10px;
+            -moz-border-radius-topleft: 7px;
+            -moz-border-radius-topright: 7px;
+            -webkit-border-top-left-radius: 7px;
+            -webkit-border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+            border-top-right-radius-radius: 7px;
+            border: 1px solid black;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        .bb-map-left-inner {
+            position: absolute;
+            bottom: 46px;
+            right: 82px;
+            z-index: 1000;
+            
+            width: 35px;
+            height: 25px;
+            padding: 0;
+            padding-top: 10px;
+            -moz-border-radius-topleft: 7px;
+            -moz-border-radius-bottomleft: 7px;
+            -webkit-border-top-left-radius: 7px;
+            -webkit-border-bottom-left-radius: 7px;
+            border-top-left-radius: 7px;
+            border-bottom-left-radius: 7px;
+            border: 1px solid black;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        .bb-map-reset-inner {
+            position: absolute;
+            bottom: 47px;
+            right: 47px;
+            z-index: 1000;
+            
+            width: 35px;
+            height: 26px;
+            /*border: 1px solid black;*/
+            padding: 0;
+            padding-top: 9px;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        .bb-map-right-inner {
+            position: absolute;
+            bottom: 46px;
+            right: 10px;
+            z-index: 1000;
+            
+            width: 35px;
+            height: 25px;
+            padding: 0;
+            padding-top: 10px;
+            -moz-border-radius-topright: 7px;
+            -moz-border-radius-bottomright: 7px;
+            -webkit-border-top-right-radius: 7px;
+            -webkit-border-bottom-right-radius: 7px;
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+            border: 1px solid black;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        .bb-map-down-inner {
+            position: absolute;
+            bottom: 10px;
+            right: 46px;
+            z-index: 1000;
+            
+            width: 35px;
+            height: 25px;
+            padding: 0;
+            padding-top: 10px;
+            -moz-border-radius-bottomleft: 7px;
+            -moz-border-radius-bottomright: 7px;
+            -webkit-border-bottom-left-radius: 7px;
+            -webkit-border-bottom-right-radius: 7px;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            border: 1px solid black;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        
+        .bb-map-set-center {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            
+            /*width: 35px;*/
+            height: 25px;
+            padding: 0 5px 3px 5px;
+            /*padding-top: 10px;*/
+            -moz-border-radius: 7px;
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+            -webkit-border-radius: 7px;
+            border-radius: 7px;
+            border-radius: 7px;
+            border: 1px solid black;
+            /*background-color: white;*/
+            text-align: center;
+            font-size: 18pt;
+        }
+        
+        
+        .bb-map-room {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+            background-color: white;
+            color: black;
+        }
+        
+        .bb-map {
+            height: 100%;
+            width: 100%;
+            background-color: lightblue;
+            /*background-color: black;*/
+        }
+        
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js" type='text/javascript'></script>
+    <script type='text/javascript'>
+        
+        var viewid = 1;
+        
+        var menu_shown = false;
+        function toggleMapMenu() {
+            if( menu_shown ) {
+                    
+                $('#bb_map_menu_'+viewid).hide(150);
+                menu_shown = false;
+            } else {
+                
+                $('#bb_map_menu_'+viewid).show(150);
+                menu_shown = true;
+            }
+        }
+        
+        $(document).ready(function() {
+            
+            $('#bb_map_menu_icon_'+viewid).click(function(e) {
+                e.stopPropagation();
+                //e.preventDefault();
+                
+                toggleMapMenu();
+            });
+            $('#bb_map_menu_'+viewid).click(function(e) {
+                //e.stopPropagation();
+            });
+            
+            $(document).click(function(e) {
+                menu_shown = true;
+                toggleMapMenu();
+            });
+            
+            // display center on address dialog
+            $('#bb_map_menu_center_address_'+viewid).click(function(e) {
+                $('#bb_map_center_address_'+viewid).show(150);
+            });
+            
+            $('#bb_map_center_address_form_'+viewid).submit(function(e) {
+                // do something
+                $('#bb_map_center_address_'+viewid).hide(150);
+                
+                return false;
+            });
+            
+            // display add personal view dialog
+            $('#bb_map_menu_add_personal_view_'+viewid).click(function(e) {
+                $('#bb_map_add_personal_view_'+viewid).show(150);
+            });
+            
+            $('#bb_map_add_personal_view_form_'+viewid).submit(function(e) {
+                // do something
+                $('#bb_map_add_personal_view_'+viewid).hide(150);
+                
+                return false;
+            });
+            
+            // display create notification dialog
+            $('#bb_map_menu_create_notification_'+viewid).click(function(e) {
+                $('#bb_map_create_notification_'+viewid).show(150);
+            });
+            
+            $('#bb_map_create_notification_form_'+viewid).submit(function(e) {
+                // do something
+                $('#bb_map_create_notification_'+viewid).hide(150);
+                
+                return false;
+            });
+            
+        });
+        
+    </script>
+    
+</head>
+<body>
+    
+    <div id='dev_area' class='dev-area'>
+        
+        <div id='bb_mapwidget_area_1' class='bb-mapwidget-area'>
+            
+            <div id='bb_map_1' class='bb-map'></div>
+            
+            <div id='bb_map_room' class='bb-map-room'>
+                Room 1
+            </div>
+            
+            <div id='bb_map_menu_icon_1' class='bb-map-menu-icon bb-map-ctl-link bb-map-ctl'>+</div>
+            <div id='bb_map_menu_1' class='bb-map-menu' style='display: none;'>
+                <ul class='bb-map-menu-list'>
+                    <li class='bb-map-menu-list-item'>Set Center</li>
+                    <li class='bb-map-menu-list-item'>Jump to Last Center</li>
+                    <li id='bb_map_menu_center_address_1' class='bb-map-menu-list-item'>Center on Address</li>
+                    <li id='bb_map_menu_add_personal_view_1' class='bb-map-menu-list-item'>Add Personal View</li>
+                    <li id='bb_map_menu_create_notification_1' class='bb-map-menu-list-item'>Create Notification</li>
+                </ul>
+            </div>
+            
+            <div id='bb_map_center_address_1' class='bb-map-center-address' style='display: none;'>
+                <form id='bb_map_center_address_form_1'>
+                    <input id='bb_map_center_address_input_1' type='text' /><br />
+                    <input id='bb_map_center_address_submit_1' type='submit' value='Center on Address' />
+                </form>
+            </div>
+            
+            <div id='bb_map_add_personal_view_1' class='bb-map-personal-view' style='display: none;'>
+                <form id='bb_map_add_personal_view_form_1'>
+                    Name:<br />
+                    <input id='bb_map_add_personal_view_name_1' class='bb-map-add-personal-view-name' type='text' /><br />
+                    Description:<br />
+                    <textarea id='bb_map_add_personal_view_description_1' class='bb-map-add-personal-view-description'></textarea><br />
+                    <input id='bb_map_add_personal_view_submit_1' type='submit' value='Add New Personal View' />
+                </form>
+            </div>
+            
+            <div id='bb_map_create_notification_1' class='bb-map-notification' style='display: none;'>
+            <!--<div id='bb_map_create_notification_1' class='bb-map-notification'>-->
+                <form id='bb_map_create_notification_form_1'>
+                    Subject:<br />
+                    <input id='bb_map_create_notification_name_1' class='bb-map-create-notification-name' type='text' /><br />
+                    Body:<br />
+                    <textarea id='bb_map_create_notification_description_1' class='bb-map-create-notification-description'></textarea><br />
+                    Level:
+                    <select>
+                        <option value='4'>Information</option>
+                        <option value='3'>Warning</option>
+                        <option value='2'>Emergency</option>
+                        <option value='1'>Disaster</option>
+                    </select>
+                        
+                    <div class='bb-map-create-notification-select-roles'>
+                        <ul>
+                            <li><input type='checkbox' id='bb_map_create_notification_roles_1_1' name='bb_map_create_notification_roles_1' />
+                                <label for='bb_map_create_notification_roles_1_1'>role1</label></li>
+                            <li><input type='checkbox' id='bb_map_create_notification_roles_1_2' name='bb_map_create_notification_roles_1' />
+                                <label for='bb_map_create_notification_roles_1_2'>role2</label></li>
+                            <li><input type='checkbox' id='bb_map_create_notification_roles_1_3' name='bb_map_create_notification_roles_1' />
+                                <label for='bb_map_create_notification_roles_1_3'>role3</label></li>
+                            <li><input type='checkbox' id='bb_map_create_notification_roles_1_4' name='bb_map_create_notification_roles_1' />
+                                <label for='bb_map_create_notification_roles_1_4'>role4</label></li>
+                            <li><input type='checkbox' id='bb_map_create_notification_roles_1_5' name='bb_map_create_notification_roles_1' />
+                                <label for='bb_map_create_notification_roles_1_5'>role5</label></li>
+                        </ul>
+                    </div>
+                    <input type='checkbox' id='bb_map_create_notification_all_roles_1' name='bb_map_create_notification_all_roles_1' checked='checked' />
+                    <label for='bb_map_create_notification_all_roles_1'>All roles in room</label>
+                    <input id='bb_map_create_notification_submit_1' type='submit' value='Create New Notification' />
+                </form>
+            </div>
+            
+            <div id='bb_map_zoomctl_1' class='bb-map-zoomctl'>
+                <div class='bb-map-plus-inner bb-map-ctl-link bb-map-ctl'>+</div>
+                <div class='bb-map-minus-inner bb-map-ctl-link bb-map-ctl'>-</div>
+            </div>
+            
+            <!--<div class='bb-map-set-center bb-map-ctl-link bb-map-ctl'>Set Center</div>-->
+            
+            <div class='bb-map-up-inner bb-map-ctl-link bb-map-ctl'>&uarr;</div>
+            <div class='bb-map-left-inner bb-map-ctl-link bb-map-ctl'>&larr;</div>
+            <div class='bb-map-reset-inner bb-map-ctl-link bb-map-ctl'>&bull;</div>
+            <div class='bb-map-right-inner bb-map-ctl-link bb-map-ctl'>&rarr;</div>
+            <div class='bb-map-down-inner bb-map-ctl-link bb-map-ctl'>&darr;</div>
+            
+        </div>
+        
+    </div>
+    
+    
+    
+</body>
+</html>

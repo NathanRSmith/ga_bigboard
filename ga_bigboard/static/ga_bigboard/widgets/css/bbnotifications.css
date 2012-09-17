@@ -1,0 +1,123 @@
+
+.notificationswidget-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+}
+.room-area {
+    left: 0;
+    right: 0;
+    height: 20px;
+    text-align: center;
+    color: white;
+    overflow: auto;
+    border-bottom: 1px solid white;
+    /*border: 1px solid pink;*/
+}
+.notifications-area {
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    top: 20px;
+    bottom: 0;
+    color: white;
+    /*border: 1px solid orange;*/
+}
+
+.notifications-maps-area {
+    position:absolute;
+    left: 0;
+    right: 0;
+    top: 20px;
+    bottom: 0;
+    overflow: auto;
+    color: black;
+    background-color: white;
+}
+.notifications-maps-title {
+    text-align: center;
+}
+.notifications-maps-cancel {
+    float: right;
+    padding: 0 5px 0 0;
+    cursor: hand;
+    cursor: pointer;
+}
+.notifications-maps-list {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    list-style: none;
+}
+.notifications-maps-item {
+    margin: 0 0 0 0;
+    padding: 5px 0 5px 10px;
+    cursor: hand;
+    cursor: pointer;
+}
+.notifications-maps-item:hover {
+    background-color: gray;
+}
+
+
+.notifications-list {
+    margin: 0 0 0 0;
+    /*padding: 5px 5px 0 5px;*/
+    padding: 5px 0 5px 0;
+    list-style: none;
+}
+.notifications-list li {
+    margin: 0 0 0 0;
+    padding: 0 0 0 5px;
+    list-style: none;
+    border-bottom: 1px solid 505050;
+}
+.notifications-list-operations {
+    float: right;
+    /*color: lightblue;*/
+}
+
+.notifications-item-go-icon {
+    cursor: hand;
+    cursor: pointer;
+    padding: 0 5px 0 0;
+}
+.notifications-item-remove-icon {
+    cursor: hand;
+    cursor: pointer;
+    padding: 0 5px 0 0;
+}
+
+.notifications-item-extra {
+    padding: 5px 0 0 0;
+}
+
+
+.notifications-item-toggle-description {
+    /*float: right;*/
+    cursor: hand;
+    cursor: pointer;
+}
+.notifications-item-toggle-description:hover {
+    color: lightblue;
+}
+
+
+
+.notification-level-information {
+    color: white;
+    background-color: #3067C2;
+}
+.notification-level-warning {
+    color: black;
+    background-color: #F0D300;
+}
+.notification-level-emergency {
+    color: white;
+    background-color: #EC8800;
+}
+.notification-level-disaster {
+    color: white;
+    background-color: #DA2B2F;
+}

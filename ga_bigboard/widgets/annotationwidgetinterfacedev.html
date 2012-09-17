@@ -1,0 +1,428 @@
+<html>
+<head>
+    
+    <style type='text/css'>
+        body {
+            background-color: black;
+        }
+        
+        .dev-area {
+            margin: 50px 0px 0px 100px;
+        }
+        
+        .annotationwidget-area {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            border: 1px solid white;
+        }
+        .annotation-room-area {
+            left: 0;
+            right: 0;
+            height: 20px;
+            text-align: center;
+            color: white;
+            overflow: auto;
+            border-bottom: 1px solid white;
+            /*border: 1px solid pink;*/
+        }
+        .annotation-area {
+            position: absolute;
+            left: 0;
+            right: 0;
+            overflow: auto;
+            top: 20px;
+            bottom: 0;
+            color: white;
+            /*border: 1px solid orange;*/
+        }
+        
+        
+        .annotations-control {
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin: 0 10px 0 10px;
+            padding: 3px 0 3px 0;
+            background-color: #EEE;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(white),to(#F1F1F1));
+            background-image: -webkit-linear-gradient(white,#F1F1F1);
+            background-image: -moz-linear-gradient(white,#F1F1F1);
+            background-image: -ms-linear-gradient(white,#F1F1F1);
+            background-image: -o-linear-gradient(white,#F1F1F1);
+            background-image: linear-gradient(white,#F1F1F1);
+            color: black;
+            border-top: 1px solid #CCC;
+            border-left: 1px solid #CCC;
+            border-right: 1px solid #CCC;
+            cursor: pointer;
+            cursor: hand;
+            font-weight: bold;
+        }
+        .annotations-control:hover {
+            background-color: #DFDFDF;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(#F6F6F6),to(#E0E0E0));
+            background-image: -webkit-linear-gradient(#F9F9F9,#E0E0E0);
+            background-image: -moz-linear-gradient(#F6F6F6,#E0E0E0);
+            background-image: -ms-linear-gradient(#F6F6F6,#E0E0E0);
+            background-image: -o-linear-gradient(#F6F6F6,#E0E0E0);
+            background-image: linear-gradient(#F6F6F6,#E0E0E0);
+        }
+        .annotations-control:active {
+            background-color: #D6D6D6;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(#D0D0D0),to(#DFDFDF));
+            background-image: -webkit-linear-gradient(#D0D0D0,#DFDFDF);
+            background-image: -moz-linear-gradient(#D0D0D0,#DFDFDF);
+            background-image: -ms-linear-gradient(#D0D0D0,#DFDFDF);
+            background-image: -o-linear-gradient(#D0D0D0,#DFDFDF);
+            background-image: linear-gradient(#D0D0D0,#DFDFDF);
+        }
+        .annotations-control-active {
+            background-color: #5393C5;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(#5393C5),to(#6FACD5));
+            background-image: -webkit-linear-gradient(#5393C5,#6FACD5);
+            background-image: -moz-linear-gradient(#5393C5,#6FACD5);
+            background-image: -ms-linear-gradient(#5393C5,#6FACD5);
+            background-image: -o-linear-gradient(#5393C5,#6FACD5);
+            background-image: linear-gradient(#5393C5,#6FACD5);
+            color: white;
+            /*border-color: #2373A5;*/
+        }
+        .annotations-control-active:hover {
+            background-color: #5393C5;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(#5393C5),to(#6FACD5));
+            background-image: -webkit-linear-gradient(#5393C5,#6FACD5);
+            background-image: -moz-linear-gradient(#5393C5,#6FACD5);
+            background-image: -ms-linear-gradient(#5393C5,#6FACD5);
+            background-image: -o-linear-gradient(#5393C5,#6FACD5);
+            background-image: linear-gradient(#5393C5,#6FACD5);
+            color: white;
+            /*border-color: #2373A5;*/
+        }
+        .annotations-control-active:active {
+            background-color: #5393C5;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(#5393C5),to(#6FACD5));
+            background-image: -webkit-linear-gradient(#5393C5,#6FACD5);
+            background-image: -moz-linear-gradient(#5393C5,#6FACD5);
+            background-image: -ms-linear-gradient(#5393C5,#6FACD5);
+            background-image: -o-linear-gradient(#5393C5,#6FACD5);
+            background-image: linear-gradient(#5393C5,#6FACD5);
+            color: white;
+            /*border-color: #2373A5;*/
+        }
+        .annotations-control-top {
+            margin-top: 10px;
+            -moz-border-radius-topleft: 7px;
+            -moz-border-radius-topright: 7px;
+            -webkit-border-top-left-radius: 7px;
+            -webkit-border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+            border-top-right-radius-radius: 7px;
+        }
+        .annotations-control-bottom {
+            margin-bottom: 10px;
+            -moz-border-radius-bottomleft: 7px;
+            -moz-border-radius-bottomright: 7px;
+            -webkit-border-bottom-left-radius: 7px;
+            -webkit-border-bottom-right-radius: 7px;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius-radius: 7px;
+            border-bottom: 1px solid #CCC;
+        }
+        
+        
+        .annotation-section-header {
+            text-align: center;
+            border-top: 1px solid white;
+            border-bottom: 1px solid white;
+        }
+        .next-annotation-kind {
+            width: 95%;
+            margin-left: 2.5%;
+        }
+        .next-annotation-data-text {
+            width: 90%;
+            margin-left: 2.5%;
+        }
+        
+        .info-for-selected-toggle{
+            cursor: pointer;
+            cursor: hand;
+        }
+        
+        
+        
+        
+        
+        
+        
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js" type='text/javascript'></script>
+    <script type='text/javascript'>
+        
+        var viewid = 1;
+        var roomName = 'Room 1';
+        
+        $(document).ready(function() {
+            
+            $('#dev_area').html('');
+            $('<div/>', {
+                            id: 'annotationwidget_area_'+viewid,
+                            class: 'annotationwidget-area'
+                        }).appendTo('#dev_area');
+            $('<div/>', {
+                            id: 'room_area_'+viewid,
+                            class: 'annotation-room-area',
+                            html: roomName + ' Annotations'
+                        }).appendTo('#annotationwidget_area_'+viewid);
+            $('<div/>', {
+                            id: 'annotation_area_'+viewid,
+                            class: 'annotation-area'
+                        }).appendTo('#annotationwidget_area_'+viewid);
+            
+            
+            // controls container
+            $('<div/>', {
+                            id: 'controls_container_'+viewid,
+                            class: 'annotations-controls-container'
+                        }).appendTo('#annotation_area_'+viewid);
+            $('<div/>', {
+                            id: 'navigate_control_'+viewid,
+                            class: 'annotations-control annotations-control-top',
+                            'data-room': roomName,
+                            'data-viewid': viewid,
+                            'data-control': 'navigate_control',
+                            html: 'Navigate'
+                        }).appendTo('#controls_container_'+viewid);
+            $('<div/>', {
+                            id: 'point_control_'+viewid,
+                            class: 'annotations-control annotations-control-active',
+                            'data-room': roomName,
+                            'data-viewid': viewid,
+                            'data-control': 'point_control',
+                            html: 'Point'
+                        }).appendTo('#controls_container_'+viewid);
+            $('<div/>', {
+                            id: 'line_control_'+viewid,
+                            class: 'annotations-control',
+                            'data-room': roomName,
+                            'data-viewid': viewid,
+                            'data-control': 'line_control',
+                            html: 'Line'
+                        }).appendTo('#controls_container_'+viewid);
+            $('<div/>', {
+                            id: 'Shape_control_'+viewid,
+                            class: 'annotations-control',
+                            'data-room': roomName,
+                            'data-viewid': viewid,
+                            'data-control': 'shape_control',
+                            html: 'Shape'
+                        }).appendTo('#controls_container_'+viewid);
+            $('<div/>', {
+                            id: 'select_control_'+viewid,
+                            class: 'annotations-control annotations-control-bottom',
+                            'data-room': roomName,
+                            'data-viewid': viewid,
+                            'data-control': 'select_control',
+                            html: 'Select'
+                        }).appendTo('#controls_container_'+viewid);
+            
+            
+            $('<div/>', {
+                            id: 'deleted_selected_'+viewid,
+                            class: 'annotations-control annotations-control-top',
+                            'data-room': roomName,
+                            'data-viewid': viewid,
+                            'data-control': 'delete_selected',
+                            html: 'Delete Selected'
+                        }).appendTo('#controls_container_'+viewid);
+            $('<div/>', {
+                            id: 'info_for_selected_'+viewid,
+                            class: 'annotations-control annotations-control-bottom',
+                            'data-room': roomName,
+                            'data-viewid': viewid,
+                            'data-control': 'info_for_selected',
+                            html: 'Info for Selected'
+                        }).appendTo('#controls_container_'+viewid);
+            
+            $('<div/>', {
+                            class: 'annotation-section-header',
+                            html: 'Next Annotation Data'
+                        }).appendTo('#annotation_area_'+viewid);
+            
+            $('<form/>', {
+                            id: 'next_annotation_data_form_'+viewid
+                        }).appendTo('#annotation_area_'+viewid);
+            $('<div/>', {
+                            html: 'Kind:'
+                        }).appendTo('#next_annotation_data_form_'+viewid);
+            $('<select/>', {
+                            id: 'next_annotation_kind_'+viewid,
+                            class: 'next-annotation-kind'
+                        }).appendTo('#next_annotation_data_form_'+viewid);
+            
+            $('<div/>', {
+                            id: 'info_for_selected_toggle_'+viewid,
+                            class: 'annotation-section-header info-for-selected-toggle',
+                            html: 'Info For Selected (click to show)'
+                        }).appendTo('#annotation_area_'+viewid);
+            
+            $('<div/>', {
+                            id: 'info_for_selected_area_'+viewid,
+                            class: 'info-for-selected-area',
+                            style: 'display: none;',
+                            html: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu tellus vel ante mollis consequat. Phasellus cursus venenatis sem, et aliquet lorem adipiscing vitae. Vivamus at magna leo. Nulla a sapien non turpis hendrerit sollicitudin.'
+                        }).appendTo('#annotation_area_'+viewid);
+            
+            
+            
+            var next_data_shown = false;
+            $('#info_for_selected_toggle_'+viewid).click(function(e) {
+                if( next_data_shown ) {
+                    $('#info_for_selected_area_'+viewid).hide(150);
+                    $('#info_for_selected_toggle_'+viewid).html('Info For Selected (click to show)');
+                    next_data_shown = false;
+                } else {
+                    $('#info_for_selected_area_'+viewid).show(150);
+                    $('#info_for_selected_toggle_'+viewid).html('Info For Selected (click to hide)');
+                    next_data_shown = true;
+                }
+            });
+            
+            
+            var types = {
+                'text': 'Text',
+                'link': 'Link',
+                'image': 'Image',
+                'video': 'Video',
+                'audio': 'Audio',
+                'media': 'Media'
+            }
+            $.each(types,function(key,val) {
+                $('<option/>',{
+                                    value: key,
+                                    html: val
+                                }).appendTo('#next_annotation_kind_'+viewid);
+            });
+            
+            $('<label/>', {
+                            for: 'next_annotation_data_text_'+viewid,
+                            style: 'display: block;',
+                            html: 'Text:'
+                        }).appendTo('#next_annotation_data_form_'+viewid);
+            $('<textarea/>', {
+                            id: 'next_annotation_data_text_'+viewid,
+                            name: 'next_annotation_data_text_'+viewid,
+                            class: 'next-annotation-data-text',
+                            style: 'display: block;'
+                        }).appendTo('#next_annotation_data_form_'+viewid);
+            $('<label/>', {
+                            for: 'next_annotation_data_file_'+viewid,
+                            style: 'display: none;',
+                            html: 'Choose a file to Upload:'
+                        }).appendTo('#next_annotation_data_form_'+viewid);
+            $('<input/>', {
+                            id: 'next_annotation_data_file_'+viewid,
+                            name: 'next_annotation_data_file_'+viewid,
+                            class: 'next-annotation-data-file',
+                            type: 'file',
+                            style: 'display: none;'
+                        }).appendTo('#next_annotation_data_form_'+viewid);
+            
+        });
+        
+        
+    </script>
+    
+</head>
+<body>
+    
+    <div id='dev_area' class='dev-area'>
+        
+        <!--<div id='annotationwidget_area_1' class='annotationwidget-area'>
+            
+            <div id='room_area_1' class='room-area'>
+                Room 1 Overlays
+            </div>
+            <div id='annotation_area_1' class='annotation-area'>
+                
+                <ul id='annotation_list_1' class='annotation-list'>
+                    
+                    <!--<li id='annotation_item_1_1'>
+                        <span class='annotation-list-operations'>
+                            <span id='annotation_item_active_icon_1_1' class='annotation-item-active-icon' onclick='toggleActive(1)'>o</span>
+                            <span id='annotation_item_up_icon_1_1' class='annotation-item-up-icon' onclick='moveUp(1)'>&uarr;</span>
+                            <span id='annotation_item_down_icon_1_1' class='annotation-item-down-icon' onclick='moveDown(1)'>&darr;</span>
+                            <span id='annotation_item_shared_icon_1_1' class='annotation-item-shared-icon annotation-item-shared' onclick='toggleShared(1)'>&rarr;</span>
+                        </span>
+                        luctus et ultrices posuere
+                    </li>
+                    <li id='annotation_item_1_2' class='annotation-item-active'>
+                        <span class='annotation-list-operations'>
+                            <span id='annotation_item_active_icon_1_2' class='annotation-item-active-icon' onclick='toggleActive(2)'>&bull;</span>
+                            <span id='annotation_item_up_icon_1_1' class='annotation-item-up-icon' onclick='moveUp(2)'>&uarr;</span>
+                            <span id='annotation_item_down_icon_1_1' class='annotation-item-down-icon' onclick='moveDown(2)'>&darr;</span>
+                            <span id='annotation_item_shared_icon_1_2' class='annotation-item-shared-icon' onclick='toggleShared(2)'>&rarr;</span>
+                        </span>
+                        Ut aliquam risus sed quam fermentum sed imperdiet
+                    </li>
+                    <li id='annotation_item_1_3' class='annotation-item-active'>
+                        <span class='annotation-list-operations'>
+                            <span id='annotation_item_active_icon_1_3' class='annotation-item-active-icon' onclick='toggleActive(3)'>&bull;</span>
+                            <span id='annotation_item_up_icon_1_1' class='annotation-item-up-icon' onclick='moveUp(3)'>&uarr;</span>
+                            <span id='annotation_item_down_icon_1_1' class='annotation-item-down-icon' onclick='moveDown(3)'>&darr;</span>
+                            <span id='annotation_item_shared_icon_1_3' class='annotation-item-shared-icon annotation-item-shared' onclick='toggleShared(3)'>&rarr;</span>
+                        </span>
+                        urna lectus, in eleifend orci
+                    </li>
+                    <li id='annotation_item_1_4'>
+                        <span class='annotation-list-operations'>
+                            <span id='annotation_item_active_icon_1_4' class='annotation-item-active-icon' onclick='toggleActive(4)'>o</span>
+                            <span id='annotation_item_up_icon_1_1' class='annotation-item-up-icon' onclick='moveUp(4)'>&uarr;</span>
+                            <span id='annotation_item_down_icon_1_1' class='annotation-item-down-icon' onclick='moveDown(4)'>&darr;</span>
+                            <span id='annotation_item_shared_icon_1_4' class='annotation-item-shared-icon' onclick='toggleShared(4)'>&rarr;</span>
+                        </span>
+                        lorem vitae
+                    </li>
+                    <li id='annotation_item_1_5'>
+                        <span class='annotation-list-operations'>
+                            <span id='annotation_item_active_icon_1_5' class='annotation-item-active-icon' onclick='toggleActive(5)'>o</span>
+                            <span id='annotation_item_up_icon_1_1' class='annotation-item-up-icon' onclick='moveUp(5)'>&uarr;</span>
+                            <span id='annotation_item_down_icon_1_1' class='annotation-item-down-icon' onclick='moveDown(5)'>&darr;</span>
+                            <span id='annotation_item_shared_icon_1_5' class='annotation-item-shared-icon' onclick='toggleShared(5)'>&rarr;</span>
+                        </span>
+                        Quisque adipiscing tempus nulla ac molestie. Nam a
+                    </li>
+                    <li id='annotation_item_1_6' class='annotation-item-active'>
+                        <span class='annotation-list-operations'>
+                            <span id='annotation_item_active_icon_1_6' class='annotation-item-active-icon' onclick='toggleActive(6)'>&bull;</span>
+                            <span id='annotation_item_up_icon_1_1' class='annotation-item-up-icon' onclick='moveUp(6)'>&uarr;</span>
+                            <span id='annotation_item_down_icon_1_1' class='annotation-item-down-icon' onclick='moveDown(6)'>&darr;</span>
+                            <span id='annotation_item_shared_icon_1_6' class='annotation-item-shared-icon annotation-item-shared' onclick='toggleShared(6)'>&rarr;</span>
+                        </span>
+                        luctus et ultrices
+                    </li>
+                    <li id='annotation_item_1_7'>
+                        <span class='annotation-list-operations'>
+                            <span id='annotation_item_active_icon_1_7' class='annotation-item-active-icon' onclick='toggleActive(7)'>o</span>
+                            <span id='annotation_item_up_icon_1_1' class='annotation-item-up-icon' onclick='moveUp(7)'>&uarr;</span>
+                            <span id='annotation_item_down_icon_1_1' class='annotation-item-down-icon' onclick='moveDown(7)'>&darr;</span>
+                            <span id='annotation_item_shared_icon_1_7' class='annotation-item-shared-icon annotation-item-shared' onclick='toggleShared(7)'>&rarr;</span>
+                        </span>
+                        osuere vel placerat eu
+                    </li>--
+                    
+                    
+                </ul>
+                
+            </div>
+            
+            
+        </div>-->
+        
+    </div>
+    
+    
+    
+</body>
+</html>

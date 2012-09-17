@@ -1,0 +1,113 @@
+.overlaywidget-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+}
+.room-area {
+    left: 0;
+    right: 0;
+    height: 20px;
+    text-align: center;
+    color: white;
+    overflow: auto;
+    border-bottom: 1px solid white;
+    /*border: 1px solid pink;*/
+}
+.overlay-area {
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    top: 20px;
+    bottom: 0;
+    color: white;
+    /*border: 1px solid orange;*/
+}
+
+.overlay-list {
+    margin: 0 0 0 0;
+    /*padding: 5px 5px 0 5px;*/
+    padding: 5px 0 5px 0;
+    list-style: none;
+}
+.overlay-list li {
+    margin: 0 0 0 0;
+    padding: 0 0 0 5px;
+    list-style: none;
+    border-bottom: 1px solid 505050;
+}
+.overlay-list-operations {
+    float: right;
+    color: lightblue;
+}
+.overlay-list-operations-self {
+    color: green;
+}
+
+.overlay-item-active {
+    background-color: #2E9AFE;
+    /*color: white;*/
+}
+.overlay-item-active-icon {
+    cursor: hand;
+    cursor: pointer;
+    padding: 0 0 0 5px;
+}
+
+.overlay-item-up-icon {
+    cursor: hand;
+    cursor: pointer;
+}
+.overlay-item-down-icon {
+    cursor: hand;
+    cursor: pointer;
+}
+
+.overlay-item-shared-icon {
+    cursor: hand;
+    cursor: pointer;
+    background-color: black;
+    padding: 0 5px 0 0;
+}
+/*.overlay-item-not-shared {*/
+/*    color: lightblue;*/
+/*    background-color: black;*/
+/*}*/
+.overlay-item-shared {
+    background-color: #2E9AFE;
+    color: black;
+}
+
+
+.overlay-item-extra {
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid white;
+}
+
+.overlay-item-opacity-range {
+    -webkit-appearance: none !important;
+    background-color: red;
+    height: 2px;
+    width: 100px;
+    /*margin: 10px 0 10px 0;*/
+}
+.overlay-item-opacity-value {
+    width: 30px;
+    margin: 3px 0 3px 5px;
+}
+/*.overlay-item-opacity-control::-webkit-slider-thumb {*/
+/*    -webkit-appearance: none !important;*/
+/*    background:blue;*/
+/*    height:10px;*/
+/*    width:10px;*/
+/*}*/
+
+.overlay-item-toggle-description {
+    float: right;
+    cursor: hand;
+    cursor: pointer;
+}
+.overlay-item-toggle-description:hover {
+    color: lightblue;
+}

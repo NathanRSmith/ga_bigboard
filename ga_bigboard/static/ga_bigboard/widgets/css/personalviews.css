@@ -1,0 +1,104 @@
+
+.viewswidget-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+}
+.room-area {
+    left: 0;
+    right: 0;
+    height: 20px;
+    text-align: center;
+    color: white;
+    overflow: auto;
+    border-bottom: 1px solid white;
+    /*border: 1px solid pink;*/
+}
+.views-area {
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    top: 20px;
+    bottom: 0;
+    color: white;
+    /*border: 1px solid orange;*/
+}
+
+.views-maps-area {
+    position:absolute;
+    left: 0;
+    right: 0;
+    top: 20px;
+    bottom: 0;
+    overflow: auto;
+    color: black;
+    background-color: white;
+}
+.views-maps-title {
+    text-align: center;
+}
+.views-maps-cancel {
+    float: right;
+    padding: 0 5px 0 0;
+    cursor: hand;
+    cursor: pointer;
+}
+.views-maps-list {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    list-style: none;
+}
+.views-maps-item {
+    margin: 0 0 0 0;
+    padding: 5px 0 5px 10px;
+    cursor: hand;
+    cursor: pointer;
+}
+.views-maps-item:hover {
+    background-color: gray;
+}
+
+
+.views-list {
+    margin: 0 0 0 0;
+    /*padding: 5px 5px 0 5px;*/
+    padding: 5px 0 5px 0;
+    list-style: none;
+}
+.views-list li {
+    margin: 0 0 0 0;
+    padding: 0 0 0 5px;
+    list-style: none;
+    border-bottom: 1px solid 505050;
+}
+.views-list-operations {
+    float: right;
+    color: lightblue;
+}
+
+.views-item-go-icon {
+    cursor: hand;
+    cursor: pointer;
+    padding: 0 5px 0 0;
+}
+.views-item-remove-icon {
+    cursor: hand;
+    cursor: pointer;
+    padding: 0 5px 0 0;
+}
+
+.views-item-extra {
+    padding: 5px 0 0 0;
+}
+
+
+.views-item-toggle-description {
+    /*float: right;*/
+    cursor: hand;
+    cursor: pointer;
+}
+.views-item-toggle-description:hover {
+    color: lightblue;
+}

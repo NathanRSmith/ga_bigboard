@@ -1,0 +1,397 @@
+<html>
+<head>
+    
+    <style type='text/css'>
+        body {
+            background-color: black;
+        }
+        
+        .dev-area {
+            margin: 50px 0px 0px 100px;
+        }
+        
+        .overlaywidget-area {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            border: 1px solid white;
+        }
+        .room-area {
+            left: 0;
+            right: 0;
+            height: 20px;
+            text-align: center;
+            color: white;
+            overflow: auto;
+            border-bottom: 1px solid white;
+            /*border: 1px solid pink;*/
+        }
+        .overlay-area {
+            position: absolute;
+            left: 0;
+            right: 0;
+            overflow: auto;
+            top: 20;
+            bottom: 0;
+            color: white;
+            /*border: 1px solid orange;*/
+        }
+        
+        .overlay-list {
+            margin: 0 0 0 0;
+            /*padding: 5px 5px 0 5px;*/
+            padding: 5px 0 5px 0;
+            list-style: none;
+        }
+        .overlay-list li {
+            margin: 0 0 0 0;
+            padding: 0 0 0 5px;
+            list-style: none;
+            border-bottom: 1px solid 505050;
+        }
+        .overlay-list-operations {
+            float: right;
+            color: lightblue;
+        }
+        .overlay-list-operations-self {
+            color: green;
+        }
+        
+        .overlay-item-active {
+            background-color: #2E9AFE;
+            /*color: white;*/
+        }
+        .overlay-item-active-icon {
+            cursor: hand;
+            cursor: pointer;
+            padding: 0 0 0 5px;
+        }
+        
+        .overlay-item-up-icon {
+            cursor: hand;
+            cursor: pointer;
+        }
+        .overlay-item-down-icon {
+            cursor: hand;
+            cursor: pointer;
+        }
+        
+        .overlay-item-shared-icon {
+            cursor: hand;
+            cursor: pointer;
+            background-color: black;
+            padding: 0 5px 0 0;
+        }
+        /*.overlay-item-not-shared {*/
+        /*    color: lightblue;*/
+        /*    background-color: black;*/
+        /*}*/
+        .overlay-item-shared {
+            background-color: #2E9AFE;
+            color: black;
+        }
+        
+        
+        .overlay-item-extra {
+            padding: 5px 0 0 0;
+        }
+        
+        .overlay-item-opacity-range {
+            -webkit-appearance: none !important;
+            background-color: red;
+            height: 2px;
+            width: 100px;
+            /*margin: 10px 0 10px 0;*/
+        }
+        .overlay-item-opacity-value {
+            width: 30px;
+            margin: 3px 0 3px 5px;
+        }
+        /*.overlay-item-opacity-control::-webkit-slider-thumb {*/
+        /*    -webkit-appearance: none !important;*/
+        /*    background:blue;*/
+        /*    height:10px;*/
+        /*    width:10px;*/
+        /*}*/
+        
+        .overlay-item-toggle-description {
+            float: right;
+            cursor: hand;
+            cursor: pointer;
+        }
+        .overlay-item-toggle-description:hover {
+            color: lightblue;
+        }
+        
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js" type='text/javascript'></script>
+    <script type='text/javascript'>
+        
+        var viewid = 1;
+        var roomName = 'Room 1';
+        
+        var overlays = {
+            1: {
+                active: false,
+                shared: false,
+                name: 'luctus et ultrices posuere',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                opacity: .5
+            },
+            2: {
+                active: false,
+                shared: false,
+                name: 'Ut aliquam risus sed quam fermentum sed imperdiet',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                opacity: .5
+            },
+            3: {
+                active: false,
+                shared: false,
+                name: 'urna lectus, in eleifend orci',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                opacity: .5
+            },
+            4: {
+                active: false,
+                shared: false,
+                name: 'lorem vitae',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                opacity: .5
+            },
+            5: {
+                active: false,
+                shared: false,
+                name: 'Quisque adipiscing tempus nulla ac molestie. Nam a',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                opacity: .5
+            },
+            6: {
+                active: false,
+                shared: false,
+                name: 'luctus et ultrices',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                opacity: .5
+            },
+            7: {
+                active: false,
+                shared: false,
+                name: 'osuere vel placerat eu',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                opacity: .5
+            }
+        }
+        
+        function toggleActive(overlay) {
+            if( overlays[overlay].active ) {
+                overlays[overlay].active = false;
+                $('#overlay_item_top_'+viewid+'_'+overlay).removeClass('overlay-item-active');
+                $('#overlay_item_active_icon_'+viewid+'_'+overlay).html('o');
+            } else {
+                overlays[overlay].active = true;
+                $('#overlay_item_top_'+viewid+'_'+overlay).addClass('overlay-item-active');
+                $('#overlay_item_active_icon_'+viewid+'_'+overlay).html('&bull;');
+            }
+        }
+        function toggleShared(overlay) {
+            if( overlays[overlay].shared ) {
+                overlays[overlay].shared = false;
+                $('#overlay_item_shared_icon_'+viewid+'_'+overlay).removeClass('overlay-item-shared');
+            } else {
+                
+                if( overlays[overlay].active == false ) toggleActive(overlay);
+                
+                overlays[overlay].shared = true;
+                $('#overlay_item_shared_icon_'+viewid+'_'+overlay).addClass('overlay-item-shared');
+            }
+        }
+        function moveUp(overlay) {
+            el = $('#overlay_item_'+viewid+'_'+overlay);
+            el.prev().before(el);
+        }
+        function moveDown(overlay) {
+            el = $('#overlay_item_'+viewid+'_'+overlay);
+            el.next().after(el);
+        }
+        
+        $(document).ready(function() {
+            
+            $('#dev_area').html('');
+            $('<div/>', {
+                            id: 'overlaywidget_area_'+viewid,
+                            class: 'overlaywidget-area'
+                        }).appendTo('#dev_area');
+            $('<div/>', {
+                            id: 'room_area_'+viewid,
+                            class: 'room-area',
+                            html: roomName + ' Overlays'
+                        }).appendTo('#overlaywidget_area_'+viewid);
+            $('<div/>', {
+                            id: 'overlay_area_'+viewid,
+                            class: 'overlay-area'
+                        }).appendTo('#overlaywidget_area_'+viewid);
+            $('<ul/>', {
+                            id: 'overlay_list_'+viewid,
+                            class: 'overlay-list'
+                        }).appendTo('#overlay_area_'+viewid);
+            
+            $.each(overlays, function(key, val) {
+                $('<li/>', {
+                                id: 'overlay_item_'+viewid+'_'+key
+                            }).appendTo('#overlay_list_'+viewid);
+                $('<div/>', {
+                                id: 'overlay_item_top_'+viewid+'_'+key,
+                                html: "\
+                                    <span class='overlay-list-operations'>\
+                                        <span id='overlay_item_active_icon_"+viewid+"_"+key+"' class='overlay-item-active-icon' onclick='toggleActive("+key+")'>o</span>\
+                                        <span id='overlay_item_up_icon_"+viewid+"_"+key+"' class='overlay-item-up-icon' onclick='moveUp("+key+")'>&uarr;</span>\
+                                        <span id='overlay_item_down_icon_"+viewid+"_"+key+"' class='overlay-item-down-icon' onclick='moveDown("+key+")'>&darr;</span>\
+                                        <span id='overlay_item_shared_icon_"+viewid+"_"+key+"' class='overlay-item-shared-icon' onclick='toggleShared("+key+")'>&rarr;</span>\
+                                    </span>\
+                                    "+val.name
+                            }).appendTo('#overlay_item_'+viewid+'_'+key);
+                $('<div/>', {
+                                id: 'overlay_item_extra_'+viewid+'_'+key,
+                                class: 'overlay-item-extra'
+                            }).appendTo('#overlay_item_'+viewid+'_'+key);
+                $('<input/>', {
+                                id: 'overlay_item_opacity_range_'+viewid+'_'+key,
+                                class: 'overlay-item-opacity-range',
+                                type: 'range',
+                                min: '0',
+                                max: '1',
+                                step: '.01',
+                                value: val.opacity,
+                            }).appendTo('#overlay_item_extra_'+viewid+'_'+key);
+                $('<input/>', {
+                                id: 'overlay_item_opacity_value_'+viewid+'_'+key,
+                                class: 'overlay-item-opacity-value',
+                                type: 'text',
+                                value: val.opacity*100
+                            }).appendTo('#overlay_item_extra_'+viewid+'_'+key);
+                $('<span/>', {
+                                id: 'overlay_item_toggle_description_'+viewid+'_'+key,
+                                class: 'overlay-item-toggle-description',
+                                html: 'Show Description',
+                            }).appendTo('#overlay_item_extra_'+viewid+'_'+key);
+                $('<div/>', {
+                                id: 'overlay_item_description_'+viewid+'_'+key,
+                                style: 'display: none;',
+                                html: val.description
+                            }).appendTo('#overlay_item_extra_'+viewid+'_'+key);
+                
+                
+                $('#overlay_item_opacity_range_'+viewid+'_'+key).change(function() {
+                    $('#overlay_item_opacity_value_'+viewid+'_'+key).val($('#overlay_item_opacity_range_'+viewid+'_'+key).val()*100);
+                });
+                $('#overlay_item_opacity_value_'+viewid+'_'+key).blur(function() {
+                    $('#overlay_item_opacity_range_'+viewid+'_'+key).val(parseFloat($('#overlay_item_opacity_value_'+viewid+'_'+key).val())/100);
+                });
+                
+                $('#overlay_item_toggle_description_'+viewid+'_'+key).click(function() {
+                    if( $('#overlay_item_description_'+viewid+'_'+key).css('display') == 'none' ) {
+                        $('#overlay_item_description_'+viewid+'_'+key).show(250);
+                    } else {
+                        $('#overlay_item_description_'+viewid+'_'+key).hide(250);
+                    }
+                });
+                
+            });
+            
+        });
+        
+        
+    </script>
+    
+</head>
+<body>
+    
+    <div id='dev_area' class='dev-area'>
+        
+        <!--<div id='overlaywidget_area_1' class='overlaywidget-area'>
+            
+            <div id='room_area_1' class='room-area'>
+                Room 1 Overlays
+            </div>
+            <div id='overlay_area_1' class='overlay-area'>
+                
+                <ul id='overlay_list_1' class='overlay-list'>
+                    
+                    <!--<li id='overlay_item_1_1'>
+                        <span class='overlay-list-operations'>
+                            <span id='overlay_item_active_icon_1_1' class='overlay-item-active-icon' onclick='toggleActive(1)'>o</span>
+                            <span id='overlay_item_up_icon_1_1' class='overlay-item-up-icon' onclick='moveUp(1)'>&uarr;</span>
+                            <span id='overlay_item_down_icon_1_1' class='overlay-item-down-icon' onclick='moveDown(1)'>&darr;</span>
+                            <span id='overlay_item_shared_icon_1_1' class='overlay-item-shared-icon overlay-item-shared' onclick='toggleShared(1)'>&rarr;</span>
+                        </span>
+                        luctus et ultrices posuere
+                    </li>
+                    <li id='overlay_item_1_2' class='overlay-item-active'>
+                        <span class='overlay-list-operations'>
+                            <span id='overlay_item_active_icon_1_2' class='overlay-item-active-icon' onclick='toggleActive(2)'>&bull;</span>
+                            <span id='overlay_item_up_icon_1_1' class='overlay-item-up-icon' onclick='moveUp(2)'>&uarr;</span>
+                            <span id='overlay_item_down_icon_1_1' class='overlay-item-down-icon' onclick='moveDown(2)'>&darr;</span>
+                            <span id='overlay_item_shared_icon_1_2' class='overlay-item-shared-icon' onclick='toggleShared(2)'>&rarr;</span>
+                        </span>
+                        Ut aliquam risus sed quam fermentum sed imperdiet
+                    </li>
+                    <li id='overlay_item_1_3' class='overlay-item-active'>
+                        <span class='overlay-list-operations'>
+                            <span id='overlay_item_active_icon_1_3' class='overlay-item-active-icon' onclick='toggleActive(3)'>&bull;</span>
+                            <span id='overlay_item_up_icon_1_1' class='overlay-item-up-icon' onclick='moveUp(3)'>&uarr;</span>
+                            <span id='overlay_item_down_icon_1_1' class='overlay-item-down-icon' onclick='moveDown(3)'>&darr;</span>
+                            <span id='overlay_item_shared_icon_1_3' class='overlay-item-shared-icon overlay-item-shared' onclick='toggleShared(3)'>&rarr;</span>
+                        </span>
+                        urna lectus, in eleifend orci
+                    </li>
+                    <li id='overlay_item_1_4'>
+                        <span class='overlay-list-operations'>
+                            <span id='overlay_item_active_icon_1_4' class='overlay-item-active-icon' onclick='toggleActive(4)'>o</span>
+                            <span id='overlay_item_up_icon_1_1' class='overlay-item-up-icon' onclick='moveUp(4)'>&uarr;</span>
+                            <span id='overlay_item_down_icon_1_1' class='overlay-item-down-icon' onclick='moveDown(4)'>&darr;</span>
+                            <span id='overlay_item_shared_icon_1_4' class='overlay-item-shared-icon' onclick='toggleShared(4)'>&rarr;</span>
+                        </span>
+                        lorem vitae
+                    </li>
+                    <li id='overlay_item_1_5'>
+                        <span class='overlay-list-operations'>
+                            <span id='overlay_item_active_icon_1_5' class='overlay-item-active-icon' onclick='toggleActive(5)'>o</span>
+                            <span id='overlay_item_up_icon_1_1' class='overlay-item-up-icon' onclick='moveUp(5)'>&uarr;</span>
+                            <span id='overlay_item_down_icon_1_1' class='overlay-item-down-icon' onclick='moveDown(5)'>&darr;</span>
+                            <span id='overlay_item_shared_icon_1_5' class='overlay-item-shared-icon' onclick='toggleShared(5)'>&rarr;</span>
+                        </span>
+                        Quisque adipiscing tempus nulla ac molestie. Nam a
+                    </li>
+                    <li id='overlay_item_1_6' class='overlay-item-active'>
+                        <span class='overlay-list-operations'>
+                            <span id='overlay_item_active_icon_1_6' class='overlay-item-active-icon' onclick='toggleActive(6)'>&bull;</span>
+                            <span id='overlay_item_up_icon_1_1' class='overlay-item-up-icon' onclick='moveUp(6)'>&uarr;</span>
+                            <span id='overlay_item_down_icon_1_1' class='overlay-item-down-icon' onclick='moveDown(6)'>&darr;</span>
+                            <span id='overlay_item_shared_icon_1_6' class='overlay-item-shared-icon overlay-item-shared' onclick='toggleShared(6)'>&rarr;</span>
+                        </span>
+                        luctus et ultrices
+                    </li>
+                    <li id='overlay_item_1_7'>
+                        <span class='overlay-list-operations'>
+                            <span id='overlay_item_active_icon_1_7' class='overlay-item-active-icon' onclick='toggleActive(7)'>o</span>
+                            <span id='overlay_item_up_icon_1_1' class='overlay-item-up-icon' onclick='moveUp(7)'>&uarr;</span>
+                            <span id='overlay_item_down_icon_1_1' class='overlay-item-down-icon' onclick='moveDown(7)'>&darr;</span>
+                            <span id='overlay_item_shared_icon_1_7' class='overlay-item-shared-icon overlay-item-shared' onclick='toggleShared(7)'>&rarr;</span>
+                        </span>
+                        osuere vel placerat eu
+                    </li>--
+                    
+                    
+                </ul>
+                
+            </div>
+            
+            
+        </div>-->
+        
+    </div>
+    
+    
+    
+</body>
+</html>

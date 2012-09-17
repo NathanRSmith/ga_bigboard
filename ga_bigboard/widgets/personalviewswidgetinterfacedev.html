@@ -1,0 +1,483 @@
+<html>
+<head>
+    
+    <style type='text/css'>
+        body {
+            background-color: black;
+        }
+        
+        .dev-area {
+            margin: 50px 0px 0px 100px;
+        }
+        
+        .viewswidget-area {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            border: 1px solid white;
+        }
+        .room-area {
+            left: 0;
+            right: 0;
+            height: 20px;
+            text-align: center;
+            color: white;
+            overflow: auto;
+            border-bottom: 1px solid white;
+            /*border: 1px solid pink;*/
+        }
+        .views-area {
+            position: absolute;
+            left: 0;
+            right: 0;
+            overflow: auto;
+            top: 20;
+            bottom: 0;
+            color: white;
+            /*border: 1px solid orange;*/
+        }
+        
+        .views-maps-area {
+            position:absolute;
+            left: 0;
+            right: 0;
+            top: 20;
+            bottom: 0;
+            overflow: auto;
+            color: black;
+            background-color: white;
+        }
+        .views-maps-title {
+            text-align: center;
+        }
+        .views-maps-cancel {
+            float: right;
+            padding: 0 5px 0 0;
+            cursor: hand;
+            cursor: pointer;
+        }
+        .views-maps-list {
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+            list-style: none;
+        }
+        .views-maps-item {
+            margin: 0 0 0 0;
+            padding: 0 0 0 10px;
+            cursor: hand;
+            cursor: pointer;
+        }
+        .views-maps-item:hover {
+            background-color: gray;
+        }
+        
+        
+        .views-list {
+            margin: 0 0 0 0;
+            /*padding: 5px 5px 0 5px;*/
+            padding: 5px 0 5px 0;
+            list-style: none;
+        }
+        .views-list li {
+            margin: 0 0 0 0;
+            padding: 0 0 0 5px;
+            list-style: none;
+            border-bottom: 1px solid 505050;
+        }
+        .views-list-operations {
+            float: right;
+            color: lightblue;
+        }
+        .views-list-operations-self {
+            color: green;
+        }
+        
+        .views-item-active {
+            background-color: #2E9AFE;
+            /*color: white;*/
+        }
+        .views-item-active-icon {
+            cursor: hand;
+            cursor: pointer;
+            padding: 0 0 0 5px;
+        }
+        
+        .views-item-up-icon {
+            cursor: hand;
+            cursor: pointer;
+        }
+        .views-item-down-icon {
+            cursor: hand;
+            cursor: pointer;
+        }
+        
+        .views-item-go-icon {
+            cursor: hand;
+            cursor: pointer;
+            background-color: black;
+            padding: 0 5px 0 0;
+        }
+        .views-item-remove-icon {
+            cursor: hand;
+            cursor: pointer;
+            padding: 0 5px 0 0;
+        }
+        
+        
+        /*.views-item-not-shared {*/
+        /*    color: lightblue;*/
+        /*    background-color: black;*/
+        /*}*/
+        .views-item-shared {
+            background-color: #2E9AFE;
+            color: black;
+        }
+        
+        
+        .views-item-extra {
+            padding: 5px 0 0 0;
+        }
+        
+        .views-item-opacity-range {
+            -webkit-appearance: none !important;
+            background-color: red;
+            height: 2px;
+            width: 100px;
+            /*margin: 10px 0 10px 0;*/
+        }
+        .views-item-opacity-value {
+            width: 30px;
+            margin: 3px 0 3px 5px;
+        }
+        /*.views-item-opacity-control::-webkit-slider-thumb {*/
+        /*    -webkit-appearance: none !important;*/
+        /*    background:blue;*/
+        /*    height:10px;*/
+        /*    width:10px;*/
+        /*}*/
+        
+        .views-item-toggle-description {
+            /*float: right;*/
+            cursor: hand;
+            cursor: pointer;
+        }
+        .views-item-toggle-description:hover {
+            color: lightblue;
+        }
+        
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js" type='text/javascript'></script>
+    <script type='text/javascript'>
+        
+        var viewid = 1;
+        var roomName = 'Room 1';
+        
+        var viewss = {
+            1: {
+                name: 'luctus et ultrices posuere',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                where: (1,2),
+                zoom_level: 5,
+                when: 'now'
+            },
+            2: {
+                name: 'Ut aliquam risus sed quam fermentum sed imperdiet',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                where: (1,2),
+                zoom_level: 5,
+                when: 'now'
+            },
+            3: {
+                name: 'urna lectus, in eleifend orci',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                where: (1,2),
+                zoom_level: 5,
+                when: 'now'
+            },
+            4: {
+                name: 'lorem vitae',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                where: (1,2),
+                zoom_level: 5,
+                when: 'now'
+            },
+            5: {
+                name: 'Quisque adipiscing tempus nulla ac molestie. Nam a',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                where: (1,2),
+                zoom_level: 5,
+                when: 'now'
+            },
+            6: {
+                name: 'luctus et ultrices',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                where: (1,2),
+                zoom_level: 5,
+                when: 'now'
+            },
+            7: {
+                name: 'osuere vel placerat eu',
+                description: 'This is a longer description. Fusce consequat blandit ultrices. In hac habitasse platea dictumst. Vivamus viverra tellus id neque pellentesque id varius orci venenatis. Nulla vestibulum risus non diam tincidunt malesuada. Cum sociis natoque penatibus et magnis dis',
+                where: (1,2),
+                zoom_level: 5,
+                when: 'now'
+            }
+        }
+        
+        var maps = [
+            'Map 1',
+            'Map 2',
+            'Map 3',
+            'Map 4',
+            'Map 5',
+            'Map 6',
+            'Map 7',
+            'Map 8',
+            'Map 9',
+            'Map 10',
+            'Map 11',
+            'Map 12',
+            'Map 13',
+            'Map 14',
+            'Map 15',
+            'Map 16',
+            'Map 17',
+            'Map 18',
+            'Map 19'
+        ]
+        
+        $(document).ready(function() {
+            
+            $('#dev_area').html('');
+            $('<div/>', {
+                            id: 'viewswidget_area_'+viewid,
+                            class: 'viewswidget-area'
+                        }).appendTo('#dev_area');
+            $('<div/>', {
+                            id: 'room_area_'+viewid,
+                            class: 'room-area',
+                            html: roomName + ' Personal Views'
+                        }).appendTo('#viewswidget_area_'+viewid);
+            $('<div/>', {
+                            id: 'views_area_'+viewid,
+                            class: 'views-area'
+                        }).appendTo('#viewswidget_area_'+viewid);
+            $('<ul/>', {
+                            id: 'views_list_'+viewid,
+                            class: 'views-list'
+                        }).appendTo('#views_area_'+viewid);
+            
+            $.each(viewss, function(key, val) {
+                $('<li/>', {
+                                id: 'views_item_'+viewid+'_'+key
+                            }).appendTo('#views_list_'+viewid);
+                $('<div/>', {
+                                id: 'views_item_top_'+viewid+'_'+key,
+                                html: "\
+                                    <span class='views-list-operations'>\
+                                        <span id='views_item_shared_icon_"+viewid+"_"+key+"' data-action='jump_to_personal_view' data-viewid='"+viewid+"' data-view-index='"+key+"' class='views-item-go-icon'>Go</span>\
+                                        <span id='views_item_remove_icon_"+viewid+"_"+key+"' data-action='remove_personal_view' data-viewid='"+viewid+"' data-view-index='"+key+"' class='views-item-remove-icon'>x</span>\
+                                    </span>\
+                                    "+val.name+"<br />"
+                            }).appendTo('#views_item_'+viewid+'_'+key);
+                $('<div/>', {
+                                id: 'views_item_extra_'+viewid+'_'+key,
+                                class: 'views-item-extra'
+                            }).appendTo('#views_item_'+viewid+'_'+key);
+                $('<span/>', {
+                                id: 'views_item_toggle_description_'+viewid+'_'+key,
+                                class: 'views-item-toggle-description',
+                                html: 'Show Description',
+                            }).appendTo('#views_item_extra_'+viewid+'_'+key);
+                $('<div/>', {
+                                id: 'views_item_description_'+viewid+'_'+key,
+                                style: 'display: none;',
+                                html: val.description
+                            }).appendTo('#views_item_extra_'+viewid+'_'+key);
+                
+                
+                $('#views_item_opacity_range_'+viewid+'_'+key).change(function() {
+                    $('#views_item_opacity_value_'+viewid+'_'+key).val($('#views_item_opacity_range_'+viewid+'_'+key).val());
+                });
+                $('#views_item_opacity_value_'+viewid+'_'+key).blur(function() {
+                    $('#views_item_opacity_range_'+viewid+'_'+key).val(parseFloat($('#views_item_opacity_value_'+viewid+'_'+key).val()));
+                });
+                
+                $('#views_item_toggle_description_'+viewid+'_'+key).click(function() {
+                    if( $('#views_item_description_'+viewid+'_'+key).css('display') == 'none' ) {
+                        $('#views_item_description_'+viewid+'_'+key).show(250);
+                        $('#views_item_toggle_description_'+viewid+'_'+key).html('Hide Description');
+                    } else {
+                        $('#views_item_description_'+viewid+'_'+key).hide(250);
+                        $('#views_item_toggle_description_'+viewid+'_'+key).html('Show Description');
+                    }
+                });
+                
+                
+            });
+            
+            $('<div/>', {
+                id: 'views_choose_map_area_'+viewid,
+                class: 'views-maps-area',
+                style: 'display: none;'
+            }).appendTo('#viewswidget_area_'+viewid);
+            var map_list_title = $('<div/>', {
+                class: 'views-maps-title',
+                html: 'Which Map?'
+            }).appendTo('#views_choose_map_area_'+viewid);
+            
+            $('<span/>', {
+                class: 'views-maps-cancel',
+                'data-viewid': viewid,
+                html: 'Cancel'
+            }).prependTo(map_list_title);
+            
+            var map_list_elms = $('<ul/>', {
+                class: 'views-maps-list'
+            }).appendTo('#views_choose_map_area_'+viewid);
+            $.each(maps, function(key, val) {
+                $('<li/>', {
+                    id: 'views_maps_item_'+viewid+'_'+key,
+                    class: 'views-maps-item',
+                    'data-viewid': viewid,
+                    'data-map-viewid': key,
+                    html: val
+                }).appendTo(map_list_elms);
+            })
+            
+            
+            var selectedView;
+            
+            $('[data-action="jump_to_personal_view"]').click(function(e) {
+                    
+                var view = $(this).data('viewid');
+                var index = $(this).data('viewIndex');
+                
+                selectedView = index;
+                
+                if(maps.length > 1) {
+                    $('#views_choose_map_area_'+view).show(150);
+                } else {
+                    alert('Map 0 selected to display view '+selectedView+'.');
+                }
+                
+            });
+            
+            $('.views-maps-cancel').click(function(e) {
+                
+                var view = $(this).data('viewid');
+                $('#views_choose_map_area_'+view).hide(150);
+                
+            });
+            
+            $('.views-maps-item').click(function(e) {
+                
+                var view = $(this).data('viewid');
+                var mapid = $(this).data('mapViewid');
+                
+                alert('Map '+mapid+' selected to display view '+selectedView+'.');
+                
+                // hide map selection, set selected map to view
+                $('#views_choose_map_area_'+view).hide(150);
+                
+                selectedView = undefined;
+                
+            });
+            
+        });
+        
+        
+    </script>
+    
+</head>
+<body>
+    
+    <div id='dev_area' class='dev-area'>
+        
+        <!--<div id='viewswidget_area_1' class='viewswidget-area'>
+            
+            <div id='room_area_1' class='room-area'>
+                Room 1 Overlays
+            </div>
+            <div id='views_area_1' class='views-area'>
+                
+                <ul id='views_list_1' class='views-list'>
+                    
+                    <!--<li id='views_item_1_1'>
+                        <span class='views-list-operations'>
+                            <span id='views_item_active_icon_1_1' class='views-item-active-icon' onclick='toggleActive(1)'>o</span>
+                            <span id='views_item_up_icon_1_1' class='views-item-up-icon' onclick='moveUp(1)'>&uarr;</span>
+                            <span id='views_item_down_icon_1_1' class='views-item-down-icon' onclick='moveDown(1)'>&darr;</span>
+                            <span id='views_item_shared_icon_1_1' class='views-item-go-icon views-item-shared' onclick='toggleShared(1)'>&rarr;</span>
+                        </span>
+                        luctus et ultrices posuere
+                    </li>
+                    <li id='views_item_1_2' class='views-item-active'>
+                        <span class='views-list-operations'>
+                            <span id='views_item_active_icon_1_2' class='views-item-active-icon' onclick='toggleActive(2)'>&bull;</span>
+                            <span id='views_item_up_icon_1_1' class='views-item-up-icon' onclick='moveUp(2)'>&uarr;</span>
+                            <span id='views_item_down_icon_1_1' class='views-item-down-icon' onclick='moveDown(2)'>&darr;</span>
+                            <span id='views_item_shared_icon_1_2' class='views-item-go-icon' onclick='toggleShared(2)'>&rarr;</span>
+                        </span>
+                        Ut aliquam risus sed quam fermentum sed imperdiet
+                    </li>
+                    <li id='views_item_1_3' class='views-item-active'>
+                        <span class='views-list-operations'>
+                            <span id='views_item_active_icon_1_3' class='views-item-active-icon' onclick='toggleActive(3)'>&bull;</span>
+                            <span id='views_item_up_icon_1_1' class='views-item-up-icon' onclick='moveUp(3)'>&uarr;</span>
+                            <span id='views_item_down_icon_1_1' class='views-item-down-icon' onclick='moveDown(3)'>&darr;</span>
+                            <span id='views_item_shared_icon_1_3' class='views-item-go-icon views-item-shared' onclick='toggleShared(3)'>&rarr;</span>
+                        </span>
+                        urna lectus, in eleifend orci
+                    </li>
+                    <li id='views_item_1_4'>
+                        <span class='views-list-operations'>
+                            <span id='views_item_active_icon_1_4' class='views-item-active-icon' onclick='toggleActive(4)'>o</span>
+                            <span id='views_item_up_icon_1_1' class='views-item-up-icon' onclick='moveUp(4)'>&uarr;</span>
+                            <span id='views_item_down_icon_1_1' class='views-item-down-icon' onclick='moveDown(4)'>&darr;</span>
+                            <span id='views_item_shared_icon_1_4' class='views-item-go-icon' onclick='toggleShared(4)'>&rarr;</span>
+                        </span>
+                        lorem vitae
+                    </li>
+                    <li id='views_item_1_5'>
+                        <span class='views-list-operations'>
+                            <span id='views_item_active_icon_1_5' class='views-item-active-icon' onclick='toggleActive(5)'>o</span>
+                            <span id='views_item_up_icon_1_1' class='views-item-up-icon' onclick='moveUp(5)'>&uarr;</span>
+                            <span id='views_item_down_icon_1_1' class='views-item-down-icon' onclick='moveDown(5)'>&darr;</span>
+                            <span id='views_item_shared_icon_1_5' class='views-item-go-icon' onclick='toggleShared(5)'>&rarr;</span>
+                        </span>
+                        Quisque adipiscing tempus nulla ac molestie. Nam a
+                    </li>
+                    <li id='views_item_1_6' class='views-item-active'>
+                        <span class='views-list-operations'>
+                            <span id='views_item_active_icon_1_6' class='views-item-active-icon' onclick='toggleActive(6)'>&bull;</span>
+                            <span id='views_item_up_icon_1_1' class='views-item-up-icon' onclick='moveUp(6)'>&uarr;</span>
+                            <span id='views_item_down_icon_1_1' class='views-item-down-icon' onclick='moveDown(6)'>&darr;</span>
+                            <span id='views_item_shared_icon_1_6' class='views-item-go-icon views-item-shared' onclick='toggleShared(6)'>&rarr;</span>
+                        </span>
+                        luctus et ultrices
+                    </li>
+                    <li id='views_item_1_7'>
+                        <span class='views-list-operations'>
+                            <span id='views_item_active_icon_1_7' class='views-item-active-icon' onclick='toggleActive(7)'>o</span>
+                            <span id='views_item_up_icon_1_1' class='views-item-up-icon' onclick='moveUp(7)'>&uarr;</span>
+                            <span id='views_item_down_icon_1_1' class='views-item-down-icon' onclick='moveDown(7)'>&darr;</span>
+                            <span id='views_item_shared_icon_1_7' class='views-item-go-icon views-item-shared' onclick='toggleShared(7)'>&rarr;</span>
+                        </span>
+                        osuere vel placerat eu
+                    </li>--
+                    
+                    
+                </ul>
+                
+            </div>
+            
+            
+        </div>-->
+        
+    </div>
+    
+    
+    
+</body>
+</html>

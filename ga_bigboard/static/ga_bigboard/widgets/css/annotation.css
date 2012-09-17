@@ -1,0 +1,139 @@
+.annotationwidget-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
+}
+.annotation-room-area {
+    left: 0;
+    right: 0;
+    height: 20px;
+    text-align: center;
+    color: white;
+    overflow: auto;
+    border-bottom: 1px solid white;
+    /*border: 1px solid pink;*/
+}
+.annotation-area {
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    top: 20px;
+    bottom: 0;
+    color: white;
+    /*border: 1px solid orange;*/
+}
+
+
+.annotations-control {
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 10px 0 10px;
+    padding: 3px 0 3px 0;
+    background-color: #EEE;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(white),to(#F1F1F1));
+    background-image: -webkit-linear-gradient(white,#F1F1F1);
+    background-image: -moz-linear-gradient(white,#F1F1F1);
+    background-image: -ms-linear-gradient(white,#F1F1F1);
+    background-image: -o-linear-gradient(white,#F1F1F1);
+    background-image: linear-gradient(white,#F1F1F1);
+    color: black;
+    border-top: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+    cursor: pointer;
+    cursor: hand;
+    font-weight: bold;
+}
+.annotations-control:hover {
+    background-color: #DFDFDF;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#F6F6F6),to(#E0E0E0));
+    background-image: -webkit-linear-gradient(#F9F9F9,#E0E0E0);
+    background-image: -moz-linear-gradient(#F6F6F6,#E0E0E0);
+    background-image: -ms-linear-gradient(#F6F6F6,#E0E0E0);
+    background-image: -o-linear-gradient(#F6F6F6,#E0E0E0);
+    background-image: linear-gradient(#F6F6F6,#E0E0E0);
+}
+.annotations-control:active {
+    background-color: #D6D6D6;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#D0D0D0),to(#DFDFDF));
+    background-image: -webkit-linear-gradient(#D0D0D0,#DFDFDF);
+    background-image: -moz-linear-gradient(#D0D0D0,#DFDFDF);
+    background-image: -ms-linear-gradient(#D0D0D0,#DFDFDF);
+    background-image: -o-linear-gradient(#D0D0D0,#DFDFDF);
+    background-image: linear-gradient(#D0D0D0,#DFDFDF);
+}
+.annotations-control-active {
+    background-color: #5393C5;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#5393C5),to(#6FACD5));
+    background-image: -webkit-linear-gradient(#5393C5,#6FACD5);
+    background-image: -moz-linear-gradient(#5393C5,#6FACD5);
+    background-image: -ms-linear-gradient(#5393C5,#6FACD5);
+    background-image: -o-linear-gradient(#5393C5,#6FACD5);
+    background-image: linear-gradient(#5393C5,#6FACD5);
+    color: white;
+    /*border-color: #2373A5;*/
+}
+.annotations-control-active:hover {
+    background-color: #5393C5;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#5393C5),to(#6FACD5));
+    background-image: -webkit-linear-gradient(#5393C5,#6FACD5);
+    background-image: -moz-linear-gradient(#5393C5,#6FACD5);
+    background-image: -ms-linear-gradient(#5393C5,#6FACD5);
+    background-image: -o-linear-gradient(#5393C5,#6FACD5);
+    background-image: linear-gradient(#5393C5,#6FACD5);
+    color: white;
+    /*border-color: #2373A5;*/
+}
+.annotations-control-active:active {
+    background-color: #5393C5;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#5393C5),to(#6FACD5));
+    background-image: -webkit-linear-gradient(#5393C5,#6FACD5);
+    background-image: -moz-linear-gradient(#5393C5,#6FACD5);
+    background-image: -ms-linear-gradient(#5393C5,#6FACD5);
+    background-image: -o-linear-gradient(#5393C5,#6FACD5);
+    background-image: linear-gradient(#5393C5,#6FACD5);
+    color: white;
+    /*border-color: #2373A5;*/
+}
+.annotations-control-top {
+    margin-top: 10px;
+    -moz-border-radius-topleft: 7px;
+    -moz-border-radius-topright: 7px;
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+    border-top-right-radius-radius: 7px;
+}
+.annotations-control-bottom {
+    margin-bottom: 10px;
+    -moz-border-radius-bottomleft: 7px;
+    -moz-border-radius-bottomright: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    -webkit-border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius-radius: 7px;
+    border-bottom: 1px solid #CCC;
+}
+
+
+.annotation-section-header {
+    text-align: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+.next-annotation-kind {
+    width: 95%;
+    margin-left: 2.5%;
+}
+.next-annotation-data-text {
+    width: 90%;
+    margin-left: 2.5%;
+}
+
+.info-for-selected-toggle{
+    cursor: pointer;
+    cursor: hand;
+}

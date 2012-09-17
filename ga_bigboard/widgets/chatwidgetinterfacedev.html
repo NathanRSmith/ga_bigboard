@@ -1,0 +1,257 @@
+<html>
+<head>
+    
+    <style type='text/css'>
+        body {
+            background-color: black;
+        }
+        
+        .dev-area {
+            margin: 50px 0px 0px 100px;
+        }
+        
+        .chatwidget-area {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            border: 1px solid white;
+        }
+        .participants-area {
+            left: 0;
+            right: 0;
+            height: 20px;
+            text-align: center;
+            color: white;
+            overflow: auto;
+            border-bottom: 1px solid white;
+            /*border: 1px solid pink;*/
+        }
+        .chat-area {
+            position: absolute;
+            left: 0;
+            right: 0;
+            overflow: auto;
+            top: 20;
+            bottom: 31;
+            color: white;
+            /*border: 1px solid orange;*/
+        }
+        .response-area {
+            position: absolute;
+            display: block;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /*width: 100%;*/
+            height: 31px;
+            border-top: 1px solid white;
+            /*border: 1px solid green;*/
+        }
+        
+        
+        .chat-response-input-container {
+            position: relative;
+            height: 100%;
+        }
+        .chat-response-input {
+            position: absolute;
+            top: 0;
+            left: 3;
+            right: 33px;
+            
+            margin-top: 6px;
+        }
+        .chat-response-submit-holder {
+            position: absolute;
+            top:0;
+            right:0;
+            width: 33px;
+            margin-top: 5px;
+        }
+        
+        .chat-list {
+            margin: 0 0 0 0;
+            padding: 5px 0 0 5px;
+            list-style: none;
+        }
+        .chat-list li {
+            margin: 0 0 0 0;
+            list-style: none;
+            border-bottom: 1px solid 505050;
+        }
+        .chat-list-datetime {
+            float: right;
+            color: orange;
+        }
+        .chat-list-datetime-self {
+            color: green;
+        }
+        
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js" type='text/javascript'></script>
+    <script type='text/javascript'>
+        
+        var viewid = 1;
+        var participantsExpanded = false;
+        var participantsDefaultHeight = 20;
+        
+        var roomName = 'Room 1';
+        var participants = [
+            {
+                username: 'admin',
+                email: 'nsmith13@nd.edu',
+                datetime: 'datetime'
+            },
+            {
+                username: 'nsmith1',
+                email: 'nathanrandal@hotmail.com',
+                datetime: 'datetime'
+            },
+            {
+                username: 'admin',
+                email: 'nsmith13@nd.edu',
+                datetime: 'datetime'
+            },
+            {
+                username: 'nsmith1',
+                email: 'nathanrandal@hotmail.com',
+                datetime: 'datetime'
+            },
+            {
+                username: 'admin',
+                email: 'nsmith13@nd.edu',
+                datetime: 'datetime'
+            },
+            {
+                username: 'nsmith1',
+                email: 'nathanrandal@hotmail.com',
+                datetime: 'datetime'
+            }
+        ];
+        
+        function expandCollapseParticipants() {
+            if( participantsExpanded == false ) {
+                
+                var chatWidgetArea = $('#chatwidget_area_'+viewid);
+                var participantsArea = $('#participants_area_'+viewid);
+                var chatArea = $('#chat_area_'+viewid);
+                
+                participantsArea.height(chatWidgetArea.height()/3);
+                chatArea.css('top',chatWidgetArea.height()/3+'px');
+                
+                var items = [];
+                
+                $.each(participants, function(key, val) {
+                    
+                    items.push(
+                        '<li>\
+                            <span style="float:right;">\
+                                <a href="mailto:'+val.email+'">Email</a>\
+                                datetime\
+                            </span>\
+                            '+val.username+'\
+                        </li>'
+                    );
+                    
+                });
+                
+                participantsArea.append( $('<ul/>',{
+                    class: 'chat-list',
+                    style: 'text-align:left;',
+                    html: items.join('')
+                }));
+                
+                participantsExpanded = true;
+            } else {
+                var chatWidgetArea = $('#chatwidget_area_'+viewid);
+                var participantsArea = $('#participants_area_'+viewid);
+                var chatArea = $('#chat_area_'+viewid);
+                
+                participantsArea.height(participantsDefaultHeight);
+                chatArea.css('top',participantsDefaultHeight+'px');
+                
+                participantsArea.html(roomName)
+                
+                participantsExpanded = false;
+            }
+        }
+        
+        $(document).ready(function() {
+            $('#participants_area_'+viewid).click(expandCollapseParticipants);
+            
+            $('#chat_response_submit_'+viewid).click(function () {
+                alert('Submitted!');
+                return false;
+            });
+        });
+        
+    </script>
+    
+</head>
+<body>
+    
+    <div id='dev_area' class='dev-area'>
+        
+        <div id='chatwidget_area_1' class='chatwidget-area'>
+            
+            <div id='participants_area_1' class='participants-area'>
+                Room 1
+            </div>
+            <div id='chat_area_1' class='chat-area'>
+                
+                <ul id='chat_list_1' class='chat-list'>
+                    
+                    <li>
+                        <span class='chat-list-datetime chat-list-datetime-self'>nsmith1 - datetime</span>
+                        luctus et ultrices posuere cubilia Curae; Nam sit amet lorem in nulla condimentum feugiat. Nunc
+                    </li>
+                    <li>
+                        <span class='chat-list-datetime'>admin - datetime</span>
+                        Ut aliquam risus sed quam fermentum sed imperdiet
+                    </li>
+                    <li>
+                        <span class='chat-list-datetime'>admin - datetime</span>
+                        urna lectus, in eleifend orci. Proin dignissim felis ac lacus blandit accumsan ut ut quam. Proin egestas, arcu eu malesuada lobortis, 
+                    </li>
+                    <li>
+                        <span class='chat-list-datetime chat-list-datetime-self'>nsmith1 - datetime</span>
+                        lorem vitae
+                    </li>
+                    <li>
+                        <span class='chat-list-datetime'>admin - datetime</span>
+                        Quisque adipiscing tempus nulla ac molestie. Nam a
+                    </li>
+                    <li>
+                        <span class='chat-list-datetime chat-list-datetime-self'>nsmith1 - datetime</span>
+                        luctus et ultrices posuere cubilia Curae; Nam sit amet lorem in nulla condimentum feugiat. Nunc 
+                    </li>
+                    <li>
+                        <span class='chat-list-datetime chat-list-datetime-self'>nsmith1 - datetime</span>
+                        osuere vel placerat eu, euismod non purus. Mauris ac justo sit amet felis suscipit 
+                    </li>
+                    
+                    
+                </ul>
+                
+            </div>
+            <div id='response_area_1' class='response-area'>
+                <form id='chat_form_1'>
+                    <div class='chat-response-input-container'>
+                        <!--<textarea id='chat_response_input_1' class='chat-response-input'></textarea>-->
+                        <input type='text' id='chat_response_input_1' class='chat-response-input' />
+                        <span class='chat-response-submit-holder'>
+                            <input type='submit' id='chat_response_submit_1' class='chat-response-submit' value='&rarr;' />
+                        </span>
+                    </div>
+                </form>
+            </div>
+            
+            
+        </div>
+        
+    </div>
+    
+    
+    
+</body>
+</html>
